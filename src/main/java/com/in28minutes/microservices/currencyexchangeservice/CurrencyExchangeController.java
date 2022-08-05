@@ -6,15 +6,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-
 @RestController
 public class CurrencyExchangeController {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private CurrencyExchangeRepository repository;
+
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyExchange getCurrencyExchange (@PathVariable String from, @PathVariable String to) {
-        return new CurrencyExchange(1, from, to, BigDecimal.valueOf(65), environment.getProperty("local.server.port"));
+        var currencyExchange = repository.findByFromAndTo(from, to);
+
+        if (currencyExchange == null) {
+            throw new RuntimeException("Unable to find data for " + from + " to " + to);
+        }
+
+        var port = environment.getProperty("local.server.port");
+        currencyExchange.setEnvironment(port);
+
+        return currencyExchange;
     }
 }
