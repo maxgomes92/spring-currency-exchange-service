@@ -1,0 +1,26 @@
+### sample api
+GET http://localhost:8000/sample-api
+
+### gateway
+GET http://localhost:8765/currency-conversion-new/from/EUR/to/INR/quantity/10
+
+### apigateway
+GET http://localhost:8765/get
+
+### gateway
+GET http://localhost:8765/currency-conversion/feign/currency-conversion/from/EUR/to/INR/quantity/10
+
+###
+GET http://localhost:8100/feign/currency-conversion/from/EUR/to/INR/quantity/10
+
+### GET from USD to BRL at 8000
+GET http://localhost:8000/currency-exchange/from/EUR/to/INR
+
+### GET from USD to BRL at 8001
+GET http://localhost:8001/currency-exchange/from/EUR/to/INR
+
+### GET invalid
+GET http://localhost:8000/currency-exchange/from/EUR/to/BRL
+
+###
+GET http://localhost:8100/currency-conversion/from/EUR/to/INR/quantity/10
